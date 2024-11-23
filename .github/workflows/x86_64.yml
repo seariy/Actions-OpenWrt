@@ -95,3 +95,9 @@ jobs:
       with:
         name: OpenWrt
         path: openwrt/bin
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+          tag_name: v${{ env.FILE_DATE }}
+          files: openwrt/bin/targets/x86/64/openwrt.zip
