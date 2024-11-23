@@ -17,6 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Free disk space
+      run: curl -fsSL https://raw.githubusercontent.com/kou/arrow/e49d8ae15583ceff03237571569099a6ad62be32/ci/scripts/util_free_space.sh | bash
+    
     - name: Checkout
       uses: actions/checkout@master
 
@@ -71,7 +74,7 @@ jobs:
         CONFIG_FILE: 'x86_64.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x ./customize.sh && ./customize.sh
+        chmod +x ./customize01.sh && ./customize01.sh
         cd openwrt && make defconfig
         
     - name: Download package
@@ -92,3 +95,9 @@ jobs:
       with:
         name: OpenWrt
         path: openwrt/bin
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+          tag_name: v${{ env.FILE_DATE }}
+          files: openwrt/bin/targets/x86/64/openwrt.zip
