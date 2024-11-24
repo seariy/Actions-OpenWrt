@@ -7,7 +7,7 @@
 #=================================================
 #1. Modify default IP
 #sed -i 's/192.168.1.1/192.168.10.100/g' openwrt/package/base-files/files/bin/config_generate
-sed -i 's/192.168.1.1/192.168.10.100/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.10.100/g' openwrt/package/base-files/files/bin/config_generate
 
 #2. Clear the login password
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' openwrt/package/lean/default-settings/files/zzz-default-settings
@@ -16,7 +16,7 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' openwrt/package/lean/default-se
 sed -i 's/KERNEL_PATCHVER:=.*/KERNEL_PATCHVER:=6.8/g' ./target/linux/x86/Makefile
 
 #4. 版本号里显示一个自己的名字
-sed -i 's/LEDE/Seariy/g' package/base-files/files/bin/config_generate
+sed -i 's/LEDE/Seariy/g' openwrt/package/base-files/files/bin/config_generate
 #sed -i "s/OpenWrt /seariy build $(TZ=UTC-8 date "+%Y.%m.%d") @ seariy /g" openwrt/package/lean/default-settings/files/zzz-default-settings
 
 #5. 修改主机名
