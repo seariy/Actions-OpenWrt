@@ -93,11 +93,20 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: OpenWrt_x86_LEDE_6.8
-        path: openwrt/bin
+        name: OpenWrt_x86-64
+        path: openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz
 
-    - name: Release
-      uses: softprops/action-gh-release@v1
+    - name: Tag the repository
+      id: tag
+      run: |
+        df -hT ${PWD}
+        echo "build_tag=Seariy_$(date +"%Y.%m.%d")" >> ${GITHUB_OUTPUT}
+        echo "build_date=$(date +"%Y.%m.%d")" >> ${GITHUB_OUTPUT}
+
+    - name: Upload Rebuild image to Release
+      uses: softprops/action-gh-release@v2.0.4
       with:
-          tag_name: v${{ env.FILE_DATE }}
+          name: ${{ steps.tag.outputs.build_date }} OpenWrt_x86-64_Seariy 云编译
+          tag_name: ${{ steps.tag.outputs.build_tag }}
           files: openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz
+
